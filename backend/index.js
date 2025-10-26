@@ -105,11 +105,11 @@ app.post('/api/add', upload.fields([
     let blog=JSON.parse(req.body.blog);
     let contact=JSON.parse(req.body.contact);
 
-    hero.profileImage=req.files?.profileImage[0]?.filename||'';
-    hero.backgroundImage=req.files?.backgroundImage[0]?.filename||'';
+    hero.profileImage=req.files?.profileImage?.[0]?.filename||'';
+    hero.backgroundImage=req.files?.backgroundImage?.[0]?.filename||'';
 
     projects.forEach((element,index)=>{
-        element.image=req.files?.projectImages[index]?.filename||'';
+        element.image=req.files?.projectImages?.[index]?.filename||'';
     })
 
     let portfolioDataNew={template,basic,about,skills,services,projects,blog,contact,hero};
