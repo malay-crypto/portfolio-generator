@@ -71,7 +71,7 @@ let Portfolio1=()=>{
                             backgroundPosition: "center",
                         }}
                     >
-                        {hero.profileImage.trim()!=="" ? (
+                        {hero.profileImage ? (
                             <img
                                 src={`http://localhost:3000/uploads/${hero.profileImage}`}
                                 alt={basic?.name || "Profile"}
@@ -163,7 +163,7 @@ let Portfolio1=()=>{
                                 p.title ? (
                                     <div key={i} className="rounded-xl shadow-lg overflow-hidden">
                                         {p.image ?
-                                            <img src={p.image} alt={p.title} className="w-full h-48 object-cover" />
+                                            <img src={`http://localhost:3000/uploads/${p.image}`} alt={p.title} className="w-full h-48 object-cover" />
                                             :
                                             <img src={`http://localhost:3000/uploads/s5.jpg`} alt={p.title} className="w-full h-48 object-cover" />
                                         }

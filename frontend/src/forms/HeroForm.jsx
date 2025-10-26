@@ -19,6 +19,10 @@ let HeroForm = ()=>{
         updateSectionData("hero", { [name]: value });
     };
 
+    const handleChangeForImage = (e) => {
+        const { name, files } = e.target;
+        updateSectionData("hero", { [name]: files[0] });
+    };
 
 
 
@@ -42,19 +46,19 @@ let HeroForm = ()=>{
                     />
 
                     <input
-                        type="text"
+                        type="file"
                         name="profileImage"
-                        value={hero.profileImage}
-                        onChange={handleChange}
+
+                        onChange={handleChangeForImage}
                         placeholder="Profile Image URL"
                         className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-500"
                     />
 
                     <input
-                        type="text"
+                        type="file"
                         name="backgroundImage"
-                        value={hero.backgroundImage}
-                        onChange={handleChange}
+
+                        onChange={handleChangeForImage}
                         placeholder="Background Image URL"
                         className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-500"
                     />

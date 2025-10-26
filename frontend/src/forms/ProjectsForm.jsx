@@ -31,10 +31,10 @@ const ProjectsForm = () => {
                         className="w-full border rounded-lg px-3 py-2"
                     />
                     <input
-                        type="text"
+                        type="file"
                         placeholder="Image URL"
-                        value={proj.image}
-                        onChange={(e) => handleChange(i, "image", e.target.value)}
+
+                        onChange={(e) => handleChange(i, "image", e.target.files[0])}
                         className="w-full border rounded-lg px-3 py-2"
                     />
                     <textarea

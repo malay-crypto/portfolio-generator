@@ -40,7 +40,7 @@ let rnd=Math.floor(Math.random()*images.length);
                 >
                     <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
                     <div className="relative z-10">
-                        {hero.profileImage.trim()!=="" ? (
+                        {hero.profileImage ? (
                             <img
                                 src={`http://localhost:3000/uploads/${hero.profileImage}`}
                                 alt={basic?.name || "Profile"}
@@ -157,7 +157,7 @@ let rnd=Math.floor(Math.random()*images.length);
                                 >
                                     {p.image ? (
                                         <img
-                                            src={p.image}
+                                            src={`http://localhost:3000/uploads/${p.image}`}
                                             alt={p.title}
                                             className="w-full h-52 object-cover"
                                         />

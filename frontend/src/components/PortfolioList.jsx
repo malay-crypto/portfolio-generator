@@ -90,12 +90,15 @@ let PortfolioList=()=>{
                                         <div
                                             className="max-w-sm   bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 hover:translate-0.5">
 
+                                            <div className="w-full h-48 overflow-hidden rounded-t-lg">
+
                                             {
-                                                item.hero.profileImage
-                                                    ? <img className="rounded-t-lg" src={`http://localhost:3000/uploads/${item.hero.profileImage}`} alt=" "/>
+                                                item.hero?.profileImage
+                                                    ? <img className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" src={`http://localhost:3000/uploads/${item.hero.profileImage}`} alt=" "/>
                                                     :
-                                                    <img className="rounded-t-lg" src={`http://localhost:3000/uploads/${images[rnd]}`} alt=" "/>
+                                                    <img className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" src={`http://localhost:3000/uploads/${images[rnd]}`} alt=" "/>
                                             }
+                                            </div>
 
                                             <div className="p-5">
 
@@ -112,7 +115,7 @@ let PortfolioList=()=>{
                                                 </p>
                                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
 
-                                                    📌{item.hero.tagline}
+                                                    📌{item.hero?.tagline}
                                                 </p>
                                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
 

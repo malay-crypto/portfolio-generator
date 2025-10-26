@@ -5,7 +5,7 @@ let cors=require('cors');
 let multer=require('multer')
 let mongoose=require('mongoose');
 
-//const upload = multer({ dest: 'uploads/' })
+const upload = multer({ dest: 'uploads/' })
 
 let app=express();
 app.use(express.json());
@@ -82,9 +82,41 @@ mongoose.connect('mongodb://localhost:27017/portfoliodb');
 
 
 //adding records
-app.post('/api/add',async (req,res)=>{
-    console.log(req.body);
-    await Portfolio.create(req.body);
+app.post('/api/add', upload.fields([
+
+    {name:'profileImage'},
+    {name:'backgroundImage'},
+        {name:'projectImages'},
+
+]) ,
+    async (req,res)=>{
+
+    console.log('body=',req.body);
+    console.log('files=',req.files);
+
+
+    let template=req.body.template;
+    let basic=JSON.parse(req.body.basic);
+    let hero=JSON.parse(req.body.hero);
+    let about=JSON.parse(req.body.about);
+    let skills=JSON.parse(req.body.skills);
+    let services=JSON.parse(req.body.services);
+    let projects=JSON.parse(req.body.projects);
+    let blog=JSON.parse(req.body.blog);
+    let contact=JSON.parse(req.body.contact);
+
+    hero.profileImage=req.files?.profileImage[0]?.filename||'';
+    hero.backgroundImage=req.files?.backgroundImage[0]?.filename||'';
+
+    projects.forEach((element,index)=>{
+        element.image=req.files?.projectImages[index]?.filename||'';
+    })
+
+    let portfolioDataNew={template,basic,about,skills,services,projects,blog,contact,hero};
+
+
+    await Portfolio.create(portfolioDataNew);
+    res.send('successfully saved');
 })
 
 
@@ -156,10 +188,37 @@ app.get('/api/searchLocation',async (req,res)=>{
 
 
 //update record
-app.put('/api/edit/:id',async (req,res)=>{
+app.put('/api/edit/:id',upload.fields([
+
+    {name:'profileImage'},
+    {name:'backgroundImage'},
+    {name:'projectImages'},
+
+]) ,
+    async (req,res)=>{
     console.log('body =',req.body);
     console.log('id=',req.params.id);
-    await Portfolio.findByIdAndUpdate(req.params.id,req.body)
+
+    let template=req.body.template;
+    let basic=JSON.parse(req.body.basic);
+    let hero=JSON.parse(req.body.hero);
+    let about=JSON.parse(req.body.about);
+    let skills=JSON.parse(req.body.skills);
+    let services=JSON.parse(req.body.services);
+    let projects=JSON.parse(req.body.projects);
+    let blog=JSON.parse(req.body.blog);
+    let contact=JSON.parse(req.body.contact);
+
+    hero.profileImage=req.files?.profileImage?.[0]?.filename||'';
+    hero.backgroundImage=req.files?.backgroundImage?.[0]?.filename||'';
+
+    projects.forEach((element,index)=>{
+        element.image=req.files?.projectImages?.[index]?.filename||'';
+    })
+
+    let portfolioDataNew={template,basic,about,skills,services,projects,blog,contact,hero};
+
+    await Portfolio.findByIdAndUpdate(req.params.id,portfolioDataNew);
     res.send('success')
 })
 

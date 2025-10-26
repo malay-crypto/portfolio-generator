@@ -137,6 +137,32 @@ let SectionTabs=()=>{
             return;
         }
 
+
+        let fd=new FormData()
+
+        fd.append("template", portfolioData.template)
+        fd.append('basic',JSON.stringify(portfolioData.basic));
+        fd.append('contact',JSON.stringify(portfolioData.contact));
+        fd.append('hero',JSON.stringify(portfolioData.hero));
+        fd.append('about',JSON.stringify(portfolioData.about));
+        fd.append('skills',JSON.stringify(portfolioData.skills));
+        fd.append('projects',JSON.stringify(portfolioData.projects));
+        fd.append('testimonials',JSON.stringify(portfolioData.testimonials));
+        fd.append('blog',JSON.stringify(portfolioData.blog));
+        fd.append('services',JSON.stringify(portfolioData.services));
+
+        fd.append('profileImage',portfolioData.hero.profileImage||'');
+        fd.append('backgroundImage',portfolioData.hero.backgroundImage||'');
+
+        portfolioData.projects?.forEach((element)=>{
+
+            fd.append('projectImages',element.image||'');
+        })
+
+
+
+
+
         if(!selectedRecord)
         {
 
@@ -144,7 +170,8 @@ let SectionTabs=()=>{
             let ans=window.confirm('Are you sure  to  submit?',)
             if(ans)
             {
-                submitPortfolio()
+                //submitPortfolio()
+                await axios.post('http://localhost:3000/api/add',fd,{headers:{'Content-Type':'multipart/form-data'}})
                 toast.success(' Portfolio created Successfully  ')
             }
 
@@ -155,7 +182,7 @@ let SectionTabs=()=>{
 
             let ans=window.confirm('Are you sure  to  make change to this profile?',)
             if(ans){
-                await axios.put(`http://localhost:3000/api/edit/${id}`,portfolioData)
+                await axios.put(`http://localhost:3000/api/edit/${id}`,fd,{headers:{'Content-Type':'multipart/form-data'}})
                 toast.success('Portfolio Successfully updated   ')
 
             }
